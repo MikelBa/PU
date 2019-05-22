@@ -16,6 +16,9 @@ pca <- FALSE
 description <-"final"
 verbose <- TRUE
 
+PU <- TRUE
+positive_case <- "1"
+
 ## Calculate Learning Curves
 cvresults <- mclapply(names(datasets),function(dname){
   cat(dname,"\n");
@@ -50,7 +53,9 @@ cvresults <- mclapply(names(datasets),function(dname){
                                repeats=repeats,
                                n_labeled=n_l,
                                verbose=TRUE,
-                               k=10
+                               k=10,
+                               PU=PU,
+                               positive_case=positive_case
                                
   )
   save(result,file=paste0("data/cv-backup-",dname,".RData"))
