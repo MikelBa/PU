@@ -1,14 +1,14 @@
 set.seed(2019)
 
-dataset_names <- apply(expand.grid(2^c(1:5),seq(2,0,-1),seq(400,1600,200)),1,function(spec){
-  paste("Variables",spec[1],"NormalMean",spec[2],"ProportionPos",spec[3]/2000, sep="_")
+dataset_names <- apply(expand.grid(2^c(1:5),seq(2,0,-1),seq(400,1600,200),2000),1,function(spec){
+  paste("Variables",spec[1],"NormalMean",spec[2],"ProportionPos",spec[3]/spec[4], sep="_")
 })
 
-datasets <- lapply(as.list(data.frame(t(expand.grid(2^c(1:5),seq(2,0,-1),seq(400,1600,200))))), function(spec){
+datasets <- lapply(as.list(data.frame(t(expand.grid(2^c(1:5),seq(2,0,-1),seq(400,1600,200),2000)))), function(spec){
   xpos <- matrix(rnorm(spec[1]*spec[3]), ncol = spec[1])
   ypos <- rep(1, spec[3])
-  xneg <- matrix(rnorm(spec[1]*(2000-spec[3]),spec[2]), ncol = spec[1])
-  yneg <- rep(0, 2000-spec[3])
+  xneg <- matrix(rnorm(spec[1]*(spec[4]-spec[3]),spec[2]), ncol = spec[1])
+  yneg <- rep(0, spec[4]-spec[3])
   mydf <- data.frame(rbind(cbind(xpos,ypos),cbind(xneg,yneg)))
   colnames(mydf)[colnames(mydf)=="ypos"] <- "y"
   mydf[, 'y'] <- as.factor(mydf[, 'y'])

@@ -45,11 +45,11 @@ cvresults <- mclapply(names(datasets),function(dname){
   
   
   result <- CrossValidationSSL(X,y,classifiers,
-                               measures = list(Error = measure_error,
-                                               "Loss Labeled" = measure_losslab,
-                                               "Loss Train" = measure_losstrain,
-                                               "Loss Test" = measure_losstest
-                               ), 
+                               measures = list("Accuracy" = measure_accuracy,
+                                               "Sensitivity" = measure_sensitivity,
+                                               "Specifity" = measure_specifity
+                               ),
+                               time=FALSE,
                                repeats=repeats,
                                n_labeled=n_l,
                                verbose=TRUE,
